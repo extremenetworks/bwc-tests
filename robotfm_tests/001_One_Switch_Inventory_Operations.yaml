@@ -1,7 +1,3 @@
-MSG ADD:     "Inventory Add"
-MSG UPDATE:  "Inventory Update"
-MSG DELETE:  "Inventory deleted Successfully"
-MSG LIST:    "Inventory List"
 ASN:         "''"
 FABRIC NAME: "default"
 FIRMWARE:    "7.0.1"
