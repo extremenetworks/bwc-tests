@@ -27,9 +27,10 @@
 
     Inventory Update
         [Documentation]  Needs two args. However, FABRIC NAME and IP ADDRESS are mutually exclusive. Other must be ${FALSE}
+        ...              Also ${USER} and {PASSWD} are optional.
         [Arguments]      ${FABRIC NAME}  ${IP ADDRESS}
-        ${output}=       Run Keyword If  ${FABRIC NAME} == ${FALSE}  Run Process  bwc  ipf  inventory  update  --host\=${IP ADDRESS}  -f  yaml
-        ...              ELSE            Run Process  bwc  ipf  inventory  update  --fabric\=${FABRIC NAME}  -f  yaml
+        ${output}=       Run Keyword If  ${FABRIC NAME} == ${FALSE}  Run Process  bwc  ipf  inventory  update  --host\=${IP ADDRESS}  --user\=${USER}  --passwd\=${PASSWD}  -f  yaml
+        ...              ELSE            Run Process  bwc  ipf  inventory  update  --fabric\=${FABRIC NAME}    --user\=${USER}  --passwd\=${PASSWD}  -f  yaml
         Log To Console   \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stderr}  ${MSG UPDATE}
         Return From Keyword  ${output}

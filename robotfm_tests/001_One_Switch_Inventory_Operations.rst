@@ -10,7 +10,7 @@
         Inventory Should Contain  ${result}
 
     Update Switch in BWC server
-        ${result}=    Inventory Update  ${FALSE}  ${IP ADDRESS}
+        ${result}=    Inventory Update  ${FALSE}  ${IP ADDRESS}  ${USER}  ${PASSWD}
         Inventory Should Contain  ${result}
 
     Check BWC List with one registered switch
