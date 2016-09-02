@@ -3,7 +3,7 @@
     *** Variables ***
     ${MSG ADD}     Inventory Add
     ${MSG UPDATE}  Inventory Update
-    ${MSG DELETE}  Inventory Delete
+    ${MSG DELETE}  Inventory delete
     ${MSG LIST}    Inventory List
 
     *** Keywords ***
