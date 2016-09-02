@@ -251,12 +251,12 @@
     *** Keywords ***
     BWC add fabric parameters TEMPLATE
         [Arguments]      ${KEY}  ${VALUE}  ${FABRIC}  ${RESULT}
-        ${output}=       Run Process  bwc  ipf  fabric  config  add  fabric\=${FABRIC}  ${KEY}  ${VALUE}
+        ${output}=       Run Process  bwc  ipf  fabric  config  set  fabric\=${FABRIC}  ${KEY}  ${VALUE}
         Log To Console   ADD LOG: \n${output.stdout} \nRC: ${output.rc} \nERROR: ${output.stderr}
         Should Contain   ${output.stdout}  ${RESULT}
     BWC add fabric parameters TEMPLATE ERROR
         [Arguments]      ${KEY}  ${VALUE}  ${FABRIC}  ${RESULT}
-        ${output}=       Run Process  bwc  ipf  fabric  config  add  fabric\=${FABRIC}  ${KEY}  ${VALUE}
+        ${output}=       Run Process  bwc  ipf  fabric  config  set  fabric\=${FABRIC}  ${KEY}  ${VALUE}
         Log To Console   ADD LOG: \n${output.stdout} \nRC: ${output.rc} \nERROR: ${output.stderr}
         Should Contain   ${output.stderr}  ${RESULT}
     BWC delete fabric parameters TEMPLATE
