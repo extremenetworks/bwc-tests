@@ -2,7 +2,7 @@
 
     *** Test Cases ***
     List "default" Fabric
-        ${output}=       Run Process  bwc  ipf  fabric  list 
+        ${output}=       Run Process  bwc  dcf  fabric  list
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stdout}  Fabric Name: ${FABRIC NAME}
         Should Contain   ${output.stdout}  bgp_multihop : ${BGP MULTIHOP}
@@ -20,17 +20,18 @@
         Should Contain   ${output.stdout}  bfd_rx : ${BFD RX}
   
     Add New Fabric: "new_fabric"
-        ${output}=       Run Process   bwc  ipf  fabric  add  fabric\=${USER FABRIC}
+        ${output}=       Run Process   bwc  dcf  fabric  add  fabric\=${USER FABRIC}
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stderr}  Fabric ${USER FABRIC} Added successfully
-        ${output}=       Run Process   bwc  ipf  fabric  add  fabric\=${USER FABRIC}
+        ${output}=       Run Process   bwc  dcf  fabric  add  fabric\=${USER FABRIC}
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stdout}  Operation failed:\nFailure Reason: Failed to add the fabric.${SPACE*2}Messages:\nFabric: ${USER FABRIC} already present.
   
     Add switch to a fabric without adding mandatory parameters should fail
-        ${output}=      Run Process  bwc  ipf  inventory  register  fabric\=${USER FABRIC}  host\=${IP ADDRESS}  user\=${USER}  passwd\=${PASSWD}  -f  yaml  
+        ${output}=      Run Process  bwc  dcf  inventory  register  fabric\=${USER FABRIC}  host\=${IP ADDRESS}  user\=${USER}  passwd\=${PASSWD}  -f  yaml
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
-        Should Contain   ${output.stdout}  Operation failed:\nFailure Reason: Failed to register device.${SPACE*2}Messages:\nOne or more of the mandatory settings p2p_link_range, spine_asn_block, leaf_asn_block, loopback_ip_range, loopback_port_number have not been set for fabric ${USER FABRIC}
+        Should Contain   ${output.stdout}  Operation failed:\nFailure Reason: Failed to register
+        device.${SPACE*2}Messages:\nOne or more of the mandatory settings p2p_link_range, spine_asn_block, leaf_asn_block, loopback_ip_range, loopback_port_number have not been set for fabric ${USER FABRIC} Also if evpn_enabled is Yes then vtep_loopback_port_number fabric setting has to be set
   
     Negative test case for mandatory parameters
         [Template]    BWC add fabric parameters TEMPLATE 
@@ -69,7 +70,7 @@
         leaf_asn_block        ${USER LEAF ASN}            ${USER FABRIC}   Setting leaf_asn_block with value ${USER LEAF ASN} added to fabric fabric=${USER FABRIC}
   
     Add New Fabric: "unnumbered_fabric"
-        ${output}=       Run Process   bwc  ipf  fabric   add   fabric\=${UNNUMBERED FABRIC}
+        ${output}=       Run Process   bwc  dcf  fabric   add   fabric\=${UNNUMBERED FABRIC}
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stderr}   Fabric ${UNNUMBERED FABRIC} Added successfully
   
@@ -82,7 +83,7 @@
         leaf_asn_block        ${UNNUMBERED LEAF ASN}       ${UNNUMBERED FABRIC}   Setting leaf_asn_block with value ${UNNUMBERED LEAF ASN} added to fabric fabric=${UNNUMBERED FABRIC}
   
     Add New Fabric: "single_asn_fabric"
-        ${output}=       Run Process   bwc  ipf  fabric   add   fabric\=${SINGLE FABRIC}
+        ${output}=       Run Process   bwc  dcf  fabric   add   fabric\=${SINGLE FABRIC}
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stderr}   Fabric ${SINGLE FABRIC} Added successfully
   
@@ -168,7 +169,7 @@
         max_paths       ${USER MAX PATHS}    ${USER FABRIC}   Setting max_paths with value ${USER MAX PATHS} added to fabric fabric=${USER FABRIC}
   
     Verify "new_fabric" with all the parameters
-        ${output}=       Run Process        bwc  ipf  fabric  list  \-\-fabric\=${USER FABRIC}
+        ${output}=       Run Process        bwc  dcf  fabric  list  \-\-fabric\=${USER FABRIC}
         Log To Console   OUTPUT: \n${output.stdout}
         Should Contain   ${output.stdout}   Fabric Name: ${USER FABRIC}
         Should Contain   ${output.stdout}   anycast_mac : ${USER ANYCAST MAC}
@@ -182,7 +183,7 @@
         Should Contain   ${output.stdout}   max_paths : ${USER MAX PATHS}
 
     Registration of switch MUST only happen after mandatory values are added to a fabric:
-        ${output}=       Run Process   bwc  ipf  fabric   add   fabric\=${TEST FABRIC}
+        ${output}=       Run Process   bwc  dcf  fabric   add   fabric\=${TEST FABRIC}
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stderr}   Fabric ${TEST FABRIC} Added successfully
         ${output}=       Inventory Register Fail   ${TEST FABRIC}  ${SWITCH 1}  ${USER}  ${PASSWD}
@@ -207,31 +208,31 @@
         BWC add fabric parameters TEMPLATE    leaf_asn_block      ${TEST LEAF ASN}       ${TEST FABRIC}   Setting leaf_asn_block with value ${TEST LEAF ASN} added to fabric fabric=${TEST FABRIC}
         ${output}=       Inventory Register  ${TEST FABRIC}       ${SWITCH 1}  ${USER}  ${PASSWD}
         Should Contain  ${output.stdout}  Fabric: ${TEST FABRIC}
-        ${output}=       Run Process   bwc  ipf  fabric  delete  ${TEST FABRIC}
+        ${output}=       Run Process   bwc  dcf  fabric  delete  ${TEST FABRIC}
         Should Contain   ${output.stderr}  Fabric ${TEST FABRIC} deleted successfully 
 
     Delete New Fabric: "new_fabric"
-      ${output}=       Run Process   bwc  ipf  fabric  delete  ${USER FABRIC}
+      ${output}=       Run Process   bwc  dcf  fabric  delete  ${USER FABRIC}
       Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
       Should Contain   ${output.stderr}  Fabric ${USER FABRIC} deleted successfully
-      ${output}=       Run Process   bwc  ipf  fabric  delete  fabric\=${USER FABRIC}
+      ${output}=       Run Process   bwc  dcf  fabric  delete  fabric\=${USER FABRIC}
       Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
       Should Contain   ${output.stdout}  Operation failed:\nFailure Reason: Failed to delete the fabric.${SPACE*2}Messages:\nFabric: ${USER FABRIC} does not exist.
       Should Contain   ${output.stdout}  Please run 'st2 execution get
   
     Delete the unnumbered and single ASN Fabric:
-        ${output}=       Run Process   bwc  ipf  fabric  delete  ${SINGLE FABRIC}
+        ${output}=       Run Process   bwc  dcf  fabric  delete  ${SINGLE FABRIC}
          Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
          Should Contain   ${output.stderr}  Fabric ${SINGLE FABRIC} deleted successfully
-         ${output}=       Run Process   bwc  ipf  fabric  delete  ${UNNUMBERED FABRIC}
+         ${output}=       Run Process   bwc  dcf  fabric  delete  ${UNNUMBERED FABRIC}
          Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
          Should Contain   ${output.stderr}  Fabric ${UNNUMBERED FABRIC} deleted successfully
   
     Add and delete "default" fabric should fail
-        ${output}=       Run Process   bwc  ipf  fabric   add   fabric\=${FABRIC NAME}
+        ${output}=       Run Process   bwc  dcf  fabric   add   fabric\=${FABRIC NAME}
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stdout}   Cannot add a default fabric
-        ${output}=       Run Process   bwc  ipf  fabric   delete   fabric\=${FABRIC NAME}
+        ${output}=       Run Process   bwc  dcf  fabric   delete   fabric\=${FABRIC NAME}
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stdout}   Cannot delete a default fabric
   

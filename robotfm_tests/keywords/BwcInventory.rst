@@ -20,7 +20,7 @@
 
     Inventory Register
         [Arguments]     ${FABRIC NAME}  ${IP ADDRESS}  ${USER}  ${PASSWD}
-        ${output}=      Run Process  bwc  ipf  inventory  register  fabric\=${FABRIC NAME}  host\=${IP ADDRESS}  user\=${USER}  passwd\=${PASSWD}  -f  yaml
+        ${output}=      Run Process  bwc  dcf  inventory  register  fabric\=${FABRIC NAME}  host\=${IP ADDRESS}  user\=${USER}  passwd\=${PASSWD}  -f  yaml
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain  ${output.stderr}  ${MSG ADD}
         Return From Keyword  ${output}
@@ -29,15 +29,15 @@
         [Documentation]  Needs two args. However, FABRIC NAME and IP ADDRESS are mutually exclusive. Other must be ${FALSE}
         ...              Also ${USER} and {PASSWD} are optional.
         [Arguments]      ${FABRIC NAME}  ${IP ADDRESS}  ${USER}  ${PASSWD}
-        ${output}=       Run Keyword If  ${FABRIC NAME} == ${FALSE}  Run Process  bwc  ipf  inventory  update  --host\=${IP ADDRESS}  --user\=${USER}  --passwd\=${PASSWD}  -f  yaml
-        ...              ELSE            Run Process  bwc  ipf  inventory  update  --fabric\=${FABRIC NAME}    --user\=${USER}  --passwd\=${PASSWD}  -f  yaml
+        ${output}=       Run Keyword If  ${FABRIC NAME} == ${FALSE}  Run Process  bwc  dcf  inventory  update  --host\=${IP ADDRESS}  --user\=${USER}  --passwd\=${PASSWD}  -f  yaml
+        ...              ELSE            Run Process  bwc  dcf  inventory  update  --fabric\=${FABRIC NAME}    --user\=${USER}  --passwd\=${PASSWD}  -f  yaml
         Log To Console   \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stderr}  ${MSG UPDATE}
         Return From Keyword  ${output}
 
     Inventory Delete
         [Arguments]     ${IP ADDRESS}
-        ${output}=      Run Process  bwc  ipf  inventory  delete  host\=${IP ADDRESS}  -f  yaml
+        ${output}=      Run Process  bwc  dcf  inventory  delete  host\=${IP ADDRESS}  -f  yaml
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain  ${output.stderr}  ${MSG DELETE}
         Return From Keyword  ${output}
@@ -45,8 +45,8 @@
     Inventory List
         [Documentation]  Needs two args. However, FABRIC NAME and IP ADDRESS are mutually exclusive. Other must be ${FALSE}
         [Arguments]      ${FABRIC NAME}  ${IP ADDRESS}
-        ${output}=       Run Keyword If  ${IP ADDRESS} == ${FALSE}   Run Process  bwc  ipf  inventory  list  --fabric\=${FABRIC NAME}  -f  yaml
-        ...              ELSE            Run Process  bwc  ipf  inventory  list  --host\={IP ADDRESS}
+        ${output}=       Run Keyword If  ${IP ADDRESS} == ${FALSE}   Run Process  bwc  dcf  inventory  list  --fabric\=${FABRIC NAME}  -f  yaml
+        ...              ELSE            Run Process  bwc  dcf  inventory  list  --host\={IP ADDRESS}
         Log To Console    \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain    ${output.stderr}  ${MSG LIST}
         Return From Keyword  ${output}
