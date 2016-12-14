@@ -3,27 +3,27 @@
     *** Keywords ***
     BWC add fabric parameters TEMPLATE
         [Arguments]      ${KEY}  ${VALUE}  ${FABRIC}  ${RESULT}
-        ${output}=       Run Process  bwc  ipf  fabric  config  set  fabric\=${FABRIC}  ${KEY}  ${VALUE}
+        ${output}=       Run Process  bwc  dcf  fabric  config  set  fabric\=${FABRIC}  ${KEY}  ${VALUE}
         Log To Console   ADD LOG: \n${output.stdout} \nRC: ${output.rc} \nERROR: ${output.stderr}
         Should Contain   ${output.stdout}  ${RESULT}
     BWC add fabric parameters TEMPLATE ERROR
         [Arguments]      ${KEY}  ${VALUE}  ${FABRIC}  ${RESULT}
-        ${output}=       Run Process  bwc  ipf  fabric  config  set  fabric\=${FABRIC}  ${KEY}  ${VALUE}
+        ${output}=       Run Process  bwc  dcf  fabric  config  set  fabric\=${FABRIC}  ${KEY}  ${VALUE}
         Log To Console   ADD LOG: \n${output.stdout} \nRC: ${output.rc} \nERROR: ${output.stderr}
         Should Contain   ${output.stderr}  ${RESULT}
     BWC delete fabric parameters TEMPLATE
         [Arguments]      ${KEY}  ${FABRIC}  ${RESULT}
-        ${output}=       Run Process  bwc  ipf  fabric  config  delete  fabric\=${FABRIC}  ${KEY}
+        ${output}=       Run Process  bwc  dcf  fabric  config  delete  fabric\=${FABRIC}  ${KEY}
         Log To Console   DEL LOG: \n${output.stdout} \nRC: ${output.rc} \nERROR: ${output.stderr}
         Should Contain   ${output.stdout}  ${RESULT}
     BWC fabric config show TEMPLATE
         [Arguments]      ${FABRIC}  ${RESULT}
-        ${output}=       Run Process  bwc  ipf  fabric  list   --fabric\=${FABRIC}
+        ${output}=       Run Process  bwc  dcf  fabric  list   --fabric\=${FABRIC}
         Log To Console   SHOW LOG: \n${output.stdout} \nRC: ${output.rc} \nERROR: ${output.stderr}
         Should Contain   ${output.stdout}  ${RESULT}
     Inventory Register Fail
         [Arguments]     ${FABRIC NAME}  ${IP ADDRESS}  ${USER}  ${PASSWD}
-        ${output}=      Run Process  bwc  ipf  inventory  register  fabric\=${FABRIC NAME}  host\=${IP ADDRESS}  user\=${USER}  passwd\=${PASSWD}  -f  yaml
+        ${output}=      Run Process  bwc  dcf  inventory  register  fabric\=${FABRIC NAME}  host\=${IP ADDRESS}  user\=${USER}  passwd\=${PASSWD}  -f  yaml
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Return From Keyword  ${output}
 
