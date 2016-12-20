@@ -4,7 +4,7 @@
     Check Empty BWC List
         ${result}=    Inventory List  ${FABRIC NAME}  ${FALSE}
         Should Not Contain   ${result.stdout}   Fabric
-          
+
     Register Switch in BWC server
         ${result}=    Inventory Register  ${FABRIC NAME}  ${IP ADDRESS}  ${USER}  ${PASSWD}
         Inventory Should Contain  ${result}
