@@ -64,7 +64,7 @@
         ${result}=       Run Process  st2  run  network_essentials.create_switchport_trunk  mgmt_ip\=${SWITCH 1}  vlan_id\=${NOT EXISTING VLAN ID}  intf_name\=${FORTY INTF INV NAME}  intf_type\=fortygigabitethernet
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Contain   ${op}  ${SWITCHPORT_VLAN_NA}
+        Should Contain   ${op}  ${SWITCHPORT_NAME_INVALID}
 
 
     SWITCH PORT TRUNK FORTY
@@ -74,7 +74,29 @@
         Should Contain   ${op}  ${SWITCHPORT_SUCCESS_MSG}
 
 
+    VALIDATE INTERFACE TRUNK
+        ${result}=       Run Process  st2  run  network_essentials.validate_interface_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}  intf_name\=${TRUNK INTF NAME}  intf_mode\=trunk
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  ${VALIDATE_TRUNK_SUCCESS_MSG}
 
+    VALIDATE INTERFACE TRUNK FAIL
+        ${result}=       Run Process  st2  run  network_essentials.validate_interface_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}  intf_name\=${TRUNK INTF NAME}  intf_mode\=access
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Invalid port channel/physical interface or mode belongs to a VLAN
+
+    VALIDATE INTERFACE TRUNK INVALID VLAN
+        ${result}=       Run Process  st2  run  network_essentials.validate_interface_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${NOT EXISTING VLAN ID}  intf_name\=${TRUNK INTF NAME}  intf_mode\=trunk
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Vlan does not exist on the interface
+
+    VALIDATE INTERFACE TRUNK INVALID NAME
+        ${result}=       Run Process  st2  run  network_essentials.validate_interface_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}  intf_name\=${FORTY INTF INV NAME}  intf_mode\=trunk
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Invalid port channel/physical interface or mode belongs to a VLAN
 
     SET L2 SYSTEM MTU
         ${result}=       Run Process  st2  run  network_essentials.set_l2_system_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${SYSTEM L2 MTU}
@@ -118,6 +140,17 @@
         ${op}=           Get Variable Value  ${result.stdout}
         #Log To Console   ${op}
         Should Contain   ${op}  succeeded
+
+    CREATE "VRF"
+        ${result}=      Run Process  st2  run  network_essentials.create_vrf   mgmt_ip\=${SWITCH 1}  vrf_name\=${VRF NAME}  rbridge_id\=${RBRIDGE ID}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  VRF-Name: ${VRF NAME}
+
+    DUPLICATE "VRF"
+        ${result}=       Run Process  st2  run  network_essentials.create_vrf  mgmt_ip\=${SWITCH 1}  vrf_name\=${VRF NAME}  rbridge_id\=${RBRIDGE ID}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
 
 
     *** Settings ***
