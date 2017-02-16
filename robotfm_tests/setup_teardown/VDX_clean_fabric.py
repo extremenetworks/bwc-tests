@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-from netmiko import ConnectHandler
+
+m netmiko import ConnectHandler
 from argparse import ArgumentParser
 from netmiko.ssh_exception import NetMikoTimeoutException, \
     NetMikoAuthenticationException
@@ -62,8 +62,7 @@ def clean_switches(switch_info):
 
         # Entering global config mode
         net_connect.send_command('terminal length 0')
-        #better to send config command using send_config_set
-        #output = net_connect.send_command('configure terminal')
+        output = net_connect.send_command('configure terminal')
         # print output
         # time.sleep(1)
 
@@ -80,8 +79,7 @@ def clean_switches(switch_info):
                 li = []
                 # Writing each line in the file to the device
                 for each_line in selected_cmd_file.readlines():
-                    output = net_connect.send_config_set([each_line.strip(
-                        '\r')])
+                    output = net_connect.send_command(each_line.strip('\r'))
                     li.append(output)
                     # time.sleep(.55)
                 # print li
@@ -118,3 +116,5 @@ except Exception as ex:
         print "No config file found"
     else:
         print ex.message
+0
+
