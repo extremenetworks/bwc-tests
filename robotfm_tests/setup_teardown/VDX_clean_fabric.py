@@ -1,5 +1,5 @@
-
-m netmiko import ConnectHandler
+#!/usr/bin/env python
+from netmiko import ConnectHandler
 from argparse import ArgumentParser
 from netmiko.ssh_exception import NetMikoTimeoutException, \
     NetMikoAuthenticationException
@@ -117,4 +117,3 @@ except Exception as ex:
     else:
         print ex.message
 0
-
