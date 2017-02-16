@@ -1,0 +1,14 @@
+# Generic Messges
+
+#VLAN_CREATE
+VLAN_SUCCESS_MSG  : Successfully created a VLAN
+SKIPPING_VLAN : Skipping to update Interface description
+NOT_VALID_VLAN :  Not a valid vlan
+ALREADY_EXISTS :  already exists, not created
+VLAN_UPDATE_DESC: Successfully updated VLAN description
+VLAN_INVALID : Invalid vlan format
+
+#Switch Port
+SWITCHPORT_SUCCESS_MSG : 'switchport_trunk_config: true'
+SWITCHPORT_CONFIG_EXISTS : 'switchport_doesnot_exists: false'
+SWITCHPORT_VLAN_NA : VLAN not configured
