@@ -116,4 +116,3 @@ except Exception as ex:
         print "No config file found"
     else:
         print ex.message
-0
