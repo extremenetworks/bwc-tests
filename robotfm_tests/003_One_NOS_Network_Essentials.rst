@@ -74,6 +74,18 @@
         Should Contain   ${op}  ${SWITCHPORT_SUCCESS_MSG}
 
 
+    VALIDATE INTERFACE STATE
+        ${result}=       Run Process  st2  run  network_essentials.validate_interface_state  mgmt_ip\=${SWITCH 1}  intf_type\=tengigabitethernet  intf_name\=${TRUNK INTF NAME}  intf_state\=down
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Successfully Validated
+
+     VALIDATE INTERFACE STATE INVALID
+        ${result}=       Run Process  st2  run  network_essentials.validate_interface_state  mgmt_ip\=${SWITCH 1}  intf_type\=tengigabitethernet  intf_name\=${TRUNK INTF NAME}  intf_state\=up
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Invalid port channel/physical interface state
+
     VALIDATE INTERFACE TRUNK
         ${result}=       Run Process  st2  run  network_essentials.validate_interface_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}  intf_name\=${TRUNK INTF NAME}  intf_mode\=trunk
         ${op}=           Get Variable Value  ${result.stdout}
@@ -105,7 +117,7 @@
         Should Contain   ${op}  Successfully  set  mtu_size
 
     SET L2 SYSTEM MTU INVALID
-        ${result}=       Run Process  st2  run  network_essentials.set_l2_system_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${INVLAID L2 MTU}
+        ${result}=       Run Process  st2  run  network_essentials.set_l2_system_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${INVALID L2 MTU}
         ${op}=           Get Variable Value  ${result.stdout}
         #Log To Console   ${op}
         Should Contain   ${op}  Cannot set L2 mtu on device due to Incorrect mtu value
@@ -118,7 +130,7 @@
         Should Contain   ${op}  Successfully  set  mtu_size
 
     SET L3 SYSTEM MTU INVALID
-        ${result}=       Run Process  st2  run  network_essentials.set_l3_system_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${INVLAID L3 MTU}
+        ${result}=       Run Process  st2  run  network_essentials.set_l3_system_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${INVALID L3 MTU}
         ${op}=           Get Variable Value  ${result.stdout}
         #Log To Console   ${op}
         Should Contain   ${op}  Cannot set system IP mtu on device
@@ -130,15 +142,51 @@
         Should Contain   ${op}  Successfully  set  mtu_size
 
     SET L3 SYSTEM MTU IPV6 INVALID
-        ${result}=       Run Process  st2  run  network_essentials.set_l3_system_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${INVLAID L3 MTU IPV6}  afi\=ipv6
+        ${result}=       Run Process  st2  run  network_essentials.set_l3_system_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${INVALID L3 MTU IPV6}  afi\=ipv6
         ${op}=           Get Variable Value  ${result.stdout}
         #Log To Console   ${op}
         Should Contain   ${op}  Cannot set system IP mtu on device
 
+    SET L2 MTU
+        ${result}=       Run Process  st2  run  network_essentials.set_l2_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${L2 MTU}  port_list\=${TRUNK INTF NAME}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Successfully  set  mtu_size
+
+    SET L2 MTU INVALID
+        ${result}=       Run Process  st2  run  network_essentials.set_l2_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${INVALID L2 MTU}  port_list\=${TRUNK INTF NAME}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Cannot set L2 mtu
+
+    SET L3 MTU
+        ${result}=       Run Process  st2  run  network_essentials.set_l3_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${L3 MTU}  port_list\=${TRUNK INTF NAME}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Successfully  set  mtu_size
+
+    SET L3 MTU INVALID
+        ${result}=       Run Process  st2  run  network_essentials.set_l3_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${INVALID L3 MTU}  port_list\=${TRUNK INTF NAME}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Cannot set L3 mtu
+
+    SET L3 MTU IPV6
+        ${result}=       Run Process  st2  run  network_essentials.set_l3_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${L3 MTU}  port_list\=${TRUNK INTF NAME}  afi\=ipv6
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Successfully  set  mtu_size
+
+    SET L3 MTU IPV6 INVALID
+        ${result}=       Run Process  st2  run  network_essentials.set_l3_mtu  mgmt_ip\=${SWITCH 1}  mtu_size\=${INVALID L3 MTU}  port_list\=${TRUNK INTF NAME}  afi\=ipv6
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  Cannot set L3 mtu
+
     GET OS VERSION
         ${result}=       Run Process  st2  run  network_essentials.get_os_version  mgmt_ip\=${SWITCH 1}
         ${op}=           Get Variable Value  ${result.stdout}
-        #Log To Console   ${op}
+        Log To Console   ${op}
         Should Contain   ${op}  succeeded
 
     CREATE "VRF"
@@ -157,6 +205,6 @@
     Library             OperatingSystem
     Library             Process
     Resource            resource.robot
-    Suite Setup         resource.Clean NOSSwitch
+    #Suite Setup         resource.Clean NOSSwitch
     Variables           003_One_NOS_Network_Essentials.yaml
     Variables           003_One_NOS_Network_Essentials_Message.yaml
