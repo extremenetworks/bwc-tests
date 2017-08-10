@@ -10,6 +10,14 @@ SWITCHPORT_SUCCESS_MSG : 'switchport_trunk_config: true'
 SWITCHPORT_CONFIG_EXISTS : 'switchport_doesnot_exists: false'
 SWITCHPORT_VLAN_NA : VLAN not configured
 SWITCHPORT_NAME_INVALID : interface type or name invalid.
+SWITCHPORT_ACCESS_SUCCESS_MSG : 'mac_groups: true'
 
 #VALIDATE TRUNK
 VALIDATE_TRUNK_SUCCESS_MSG: Successfully Validated
+
+#MAC GROUP
+MAC_GROUP_SUCCESS_MSG : 'configure_entry_macs: true'
+MAC_GROUP_ASSOCIATION_MSG : 'Mac Group is already used with a different Vlan'
+
+#VLAN TO VNI MAPPING
+VLAN_VNI_MAP_SUCCESS_MSG : 'vlan_vni_mapping: true'
