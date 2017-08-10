@@ -12,7 +12,9 @@ EXECUTOR = concurrent.futures.ThreadPoolExecutor(50)
 def connection_list(device_file):
     ip_list = []
     try:
-        with open(device_file, 'r') as selected_device_file:
+
+        file_name = 'setup_teardown/'+device_file + '_IP.txt'
+        with open(file_name, 'r') as selected_device_file:
             selected_device_file.seek(0)
             # Getting each device IP and appending it in a list
             for each_ip in selected_device_file:
@@ -37,7 +39,7 @@ def update_switches(arg):
             'password': "password",
             'verbose': False
         }
-        switch_state_map[switch] = EXECUTOR.submit(clean_switches, opt)
+        switch_state_map[switch] = EXECUTOR.submit(clean_switches, opt,device_file)
 
     for k, v in switch_state_map.items():
         try:
@@ -50,7 +52,7 @@ def update_switches(arg):
             traceback.print_exc()
 
 
-def clean_switches(switch_info):
+def clean_switches(switch_info,device_file):
     net_connect = None
     try:
         net_connect = ConnectHandler(**switch_info)
@@ -69,9 +71,10 @@ def clean_switches(switch_info):
         # time.sleep(1)
 
         # Open command file based on the last octet of IP
-        last_octet = switch_info['ip'].split('.')[3]
-        cmd_file = 'setup_teardown/NOS_switch_configs/{0}.config'.format(
-            last_octet)
+        ip_string = switch_info['ip'].replace('.','_')
+        cmd_file = 'setup_teardown/NOS_switch_configs/{0}_{1}.config'.format(
+            device_file,ip_string)
+        print cmd_file
         # print cmd_file
         try:
             with open(cmd_file, 'r') as selected_cmd_file:

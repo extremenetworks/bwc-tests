@@ -6,8 +6,7 @@
         ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Contain   ${op}  ${VLAN_SUCCESS_MSG}
-        Should Contain   ${op}  ${SKIPPING_VLAN}
+        Should Not Contain   ${op}  ERROR
 
     CREATE VLAN INVALID VLAN ID
         ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${INVALID VLAN ID}
@@ -25,53 +24,25 @@
         ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Contain   ${op}  ${ALREADY_EXISTS}
-        Should Contain   ${op}  ${SKIPPING_VLAN}
+        Should Not Contain   ${op}  ERROR
 
     CREATE VLAN WITH DESCRIPTION
-        ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID2}  intf_desc\=${VLAN DESC}
+        ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID2}  vlan_desc\=${VLAN DESC}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Contain   ${op}  ${VLAN_SUCCESS_MSG}
-        Should Contain   ${op}  ${VLAN_UPDATE_DESC}
+        Should Not Contain   ${op}  ERROR
 
     CREATE VLAN RANGE
-        ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${VLAN RANGE}  intf_desc\=${VLAN DESC}
+        ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${VLAN RANGE}  vlan_desc\=${VLAN DESC}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Contain   ${op}  ${VLAN_SUCCESS_MSG}
-        Should Contain   ${op}  ${VLAN_UPDATE_DESC}
+        Should Not Contain   ${op}  ERROR
 
-    SWITCH PORT TRUNK
-        ${result}=       Run Process  st2  run  network_essentials.create_switchport_trunk  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}  intf_name\=${TRUNK INTF NAME}
+    CREATE VLAN BIG RANGE
+        ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${VLAN BIG RANGE}  vlan_desc\=${VLAN DESC}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Contain   ${op}  ${SWITCHPORT_SUCCESS_MSG}
-
-    SWITCH PORT TRUNK DUPLICATE
-        ${result}=       Run Process  st2  run  network_essentials.create_switchport_trunk  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}  intf_name\=${TRUNK INTF NAME}
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Contain   ${op}  ${SWITCHPORT_CONFIG_EXISTS}
-
-    SWITCH PORT TRUNK FORTY INVALID VLAN ID
-        ${result}=       Run Process  st2  run  network_essentials.create_switchport_trunk  mgmt_ip\=${SWITCH 1}  vlan_id\=${NOT EXISTING VLAN ID}  intf_name\=${FORTY INTF NAME}  intf_type\=fortygigabitethernet
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Contain   ${op}  ${SWITCHPORT_VLAN_NA}
-
-    SWITCH PORT TRUNK FORTY INVALID NAME
-        ${result}=       Run Process  st2  run  network_essentials.create_switchport_trunk  mgmt_ip\=${SWITCH 1}  vlan_id\=${NOT EXISTING VLAN ID}  intf_name\=${FORTY INTF INV NAME}  intf_type\=fortygigabitethernet
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Contain   ${op}  ${SWITCHPORT_NAME_INVALID}
-
-
-    SWITCH PORT TRUNK FORTY
-        ${result}=       Run Process  st2  run  network_essentials.create_switchport_trunk  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}  intf_name\=${FORTY INTF NAME}  intf_type\=fortygigabitethernet
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Contain   ${op}  ${SWITCHPORT_SUCCESS_MSG}
+        Should Not Contain   ${op}  ERROR
 
 
     VALIDATE INTERFACE STATE
@@ -189,22 +160,12 @@
         Log To Console   ${op}
         Should Contain   ${op}  succeeded
 
-    CREATE "VRF"
-        ${result}=      Run Process  st2  run  network_essentials.create_vrf   mgmt_ip\=${SWITCH 1}  vrf_name\=${VRF NAME}  rbridge_id\=${RBRIDGE ID}
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Contain   ${op}  VRF-Name: ${VRF NAME}
-
-    DUPLICATE "VRF"
-        ${result}=       Run Process  st2  run  network_essentials.create_vrf  mgmt_ip\=${SWITCH 1}  vrf_name\=${VRF NAME}  rbridge_id\=${RBRIDGE ID}
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
 
 
     *** Settings ***
     Library             OperatingSystem
     Library             Process
     Resource            resource.robot
-    #Suite Setup         resource.Clean NOSSwitch
+    Suite Setup         resource.Clean NOSSwitch_Network_Essentials
     Variables           003_One_NOS_Network_Essentials.yaml
     Variables           003_One_NOS_Network_Essentials_Message.yaml
