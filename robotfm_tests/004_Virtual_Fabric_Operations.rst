@@ -15,6 +15,24 @@
         Log To Console   ${op}
         Should Not Contain   ${op}  vf_id: '' 
 
+    GET NEXT AVAILABLE VF LENGTH
+        ${result}=       Run Process  st2  run  network_essentials.get_next_available_vf_id  mgmt_ip\=${SWITCH 1}  length_of_the_range\=${VLAN LENGTH}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Not Contain   ${op}  vf_id: '' 
+
+    GET NEXT AVAILABLE VF LENGTH RANGE
+        ${result}=       Run Process  st2  run  network_essentials.get_next_available_vf_id  mgmt_ip\=${SWITCH 1}  length_of_the_range\=${VLAN RANGE}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Not Contain   ${op}  vf_id: '' 
+
+    GET NEXT AVAILABLE VF INVALID LENGTH
+        ${result}=       Run Process  st2  run  network_essentials.get_next_available_vf_id  mgmt_ip\=${SWITCH 1}  length_of_the_range\=${4096}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  ERROR 
+
     CREATE CTAG VLAN
         ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}
         ${op}=           Get Variable Value  ${result.stdout}
