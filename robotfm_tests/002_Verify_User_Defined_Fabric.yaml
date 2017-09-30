@@ -1,6 +1,6 @@
 FABRIC NAME:    "default"
 BGP MULTIHOP:   "2"
-SPINE ASN:     "64512-64999"
+SPINE ASN:     "64512"
 LEAF ASN:      "65000-65534"
 ALLOWAS IN:    "1"
 MAX PATHS:     "8"
