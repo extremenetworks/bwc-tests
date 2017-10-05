@@ -1,6 +1,6 @@
 *** Variables ***
 ${USERNAME}  st2admin
-${PASSWORD}  pass
+${PASSWORD}  st2admin
 
 *** Settings ***
 Library           Selenium2Library
