@@ -236,9 +236,15 @@
         Should Contain   ${output.stdout}   Cannot delete a default fabric
 
     Fabric config for non-existent fabric
-        BWC add fabric parameters TEMPLATE     key  value  ${NO FABRIC}  Fabric: ${NO FABRIC} does not exist.
-        BWC delete fabric parameters TEMPLATE  key         ${NO FABRIC}  Fabric: ${NO FABRIC} does not exist.
-        BWC fabric config show TEMPLATE                    ${NO FABRIC}  Fabric does not exist: ${NO FABRIC}
+        ${output}=       Run Process   bwc  dcf  fabric   config  set  fabric\=${NO FABRIC}  key\=loopback_port_number  value\=1
+        Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
+        Should Contain   ${output.stdout}   Fabric: ${NO FABRIC} does not exist.
+        ${output}=       Run Process  bwc  dcf  fabric   config  delete  fabric\=${NO FABRIC}  key\=loopback_port_number
+        Log To Console   DEL LOG: \n${output.stdout} \nRC: ${output.rc} \nERROR: ${output.stderr}
+        Should Contain   ${output.stdout}   Fabric: ${NO FABRIC} does not exist.
+        ${output}=       Run Process   bwc  dcf  fabric  config  show  fabric\=${NO FABRIC}
+        Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
+        Should Contain   ${output.stdout}   Fabric does not exist: ${NO FABRIC}
 
     *** Settings ***
     Library             OperatingSystem
