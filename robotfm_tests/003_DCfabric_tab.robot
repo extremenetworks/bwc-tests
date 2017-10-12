@@ -8,7 +8,7 @@ Library           Selenium2Library
 *** Test Cases ***
 Connect Webdriver
     ${service_args}=   Create List    -headless
-    Create Webdriver  Firefox  ${service_args}
+    Create Webdriver   Chrome    ${service_args}
     Set Window Size    ${800}    ${600}
 
 Login Page
