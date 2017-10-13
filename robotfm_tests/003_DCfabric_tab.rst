@@ -9,8 +9,10 @@
 
     *** Test Cases ***
     Connect Webdriver
-        ${service_args}=   Create List    -headless
-        Create Webdriver   Chrome    ${service_args}
+        ${options}=  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys, selenium.webdriver
+        Call Method    ${options}    add_argument      no-sandbox
+        Call Method    ${options}    add_argument      disable-setuid-sandbox
+        Create WebDriver  Chrome    chrome_options=${options}
         Set Window Size    ${800}    ${600}
 
     Login Page
