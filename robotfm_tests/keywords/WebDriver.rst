@@ -5,7 +5,10 @@
         [Arguments]    ${URL}  ${USERNAME}  ${PASSWORD}
         Log To Console     Connecting Webdriver....\n
         ${capabilities}    Evaluate  sys.modules['selenium.webdriver'].common.desired_capabilities.DesiredCapabilities.FIREFOX    sys,selenium.webdriver
+
+        # For local UI test comment following line as "marionette" should be True for local
         Set To Dictionary  ${capabilities}    marionette=${False}
+
         Open Browser       ${URL}  firefox  capabilities=${capabilities}
         Set Window Size    ${1200}    ${700}
 
