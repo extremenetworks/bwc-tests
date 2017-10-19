@@ -87,6 +87,6 @@
     Library             OperatingSystem
     Library             Process
     Resource            resource.robot
-    Suite Setup         resource.Clean CastorSwitch_Network_Essentials
+    Suite teardown         resource.Clean CastorSwitch_Network_Essentials
     Variables           001_One_Switch_Castor_Network_Essentials.yaml
     Variables           001_One_Switch_Network_Essentials_Message.yaml
