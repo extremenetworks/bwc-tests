@@ -33,7 +33,6 @@
         # DC fabric for v2.4
         ...       ELSE  Wait Until Element Is Visible  //html/body/div[1]/main/div[1]/div[2]/div[1][contains(text(), ' DC Fabric: Actions ')]
 
-     Test: Verify that the Groupings of Actions/Workflows shows up in the DC Fabric Tab
+    Test: Verify that the Groupings of Actions/Workflows shows up in the DC Fabric Tab
         Wait Until Element Is Visible   //html/body/div[1]/main/div[1]/div[3]/div/div[1]/div[1]/h4/span[contains(text(), ' DCFABRIC ')]
         Element Should Contain  //html/body/div[1]/main/div[1]/div[3]  Manage EVPN Tenants and Edge Ports
-        #/html/body/div[1]/main/div[1]/div[3]/div/div[1]/div[1]/h4/span
