@@ -13,19 +13,19 @@
         ${result}=       Run Process  st2  run  network_essentials.get_next_available_network_id  mgmt_ip\=${SWITCH 1}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Not Contain   ${op}  vf_id: '' 
+        Should Not Contain   ${op}  network_id: '' 
 
     GET NEXT AVAILABLE VF LENGTH
         ${result}=       Run Process  st2  run  network_essentials.get_next_available_network_id  mgmt_ip\=${SWITCH 1}  length_of_the_range\=${VLAN LENGTH}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Not Contain   ${op}  vf_id: '' 
+        Should Not Contain   ${op}  network_id: '' 
 
     GET NEXT AVAILABLE VF LENGTH RANGE
         ${result}=       Run Process  st2  run  network_essentials.get_next_available_network_id  mgmt_ip\=${SWITCH 1}  length_of_the_range\=${VLAN RANGE}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Not Contain   ${op}  vf_id: '' 
+        Should Not Contain   ${op}  network_id: '' 
 
     GET NEXT AVAILABLE VF INVALID LENGTH
         ${result}=       Run Process  st2  run  network_essentials.get_next_available_network_id  mgmt_ip\=${SWITCH 1}  length_of_the_range\=${4096}
