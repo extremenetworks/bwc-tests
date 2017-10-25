@@ -472,7 +472,7 @@
            ${result}=       Run Process  bwc  dcf  fabric   config  set  sj_fabric   leaf_asn_block  65208
 
     ADD SJ_FABRIC_VLAN_VNI_AUTO
-           ${result}=       Run Process  bwc  dcf  fabric   config  set  sj_fabric   vlan_vni_auto_map  Yes
+           ${result}=       Run Process  bwc  dcf  fabric   config  set  sj_fabric   vni_auto_map  Yes
 
     ADD SJ_FABRIC_LEAF_ASN_BLOCK
            ${result}=       Run Process  bwc  dcf  fabric   config  set  sj_fabric   spine_asn_block  65200
@@ -498,7 +498,7 @@
     Library             OperatingSystem
     Library             Process
     Resource            resource.robot
-    #Suite Setup         Clean DCFabric_SLX
+    Suite Setup         Clean DCFabric_SLX
     Variables           005_DCFabric_SLX.yaml
 
 
