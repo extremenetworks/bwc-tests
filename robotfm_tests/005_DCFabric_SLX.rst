@@ -35,6 +35,8 @@
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_3}
 
+        ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI AUTO VLAN
+
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
 
@@ -69,6 +71,8 @@
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_3}
 
+        ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI MANUAL VLAN 
+        
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
 
@@ -102,6 +106,8 @@
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_3}  'Yes'
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_3}
+
+        ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI AUTO VLAN
 
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
@@ -137,6 +143,8 @@
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_3}
 
+        ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI MANUAL VLAN 
+
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
 
@@ -170,6 +178,8 @@
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_3}  'Yes'
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_3}
+
+        ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI AUTO VLAN
 
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
@@ -205,6 +215,7 @@
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_3}
 
+        ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI MANUAL VLAN 
 
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
@@ -240,6 +251,8 @@
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_3}
 
+        ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI AUTO VLAN
+
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
 
@@ -274,6 +287,7 @@
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_3}
 
+        ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI MANUAL VLAN
 
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
@@ -389,8 +403,54 @@
         Should Contain   ${op}  activate
 
 
+    VERIFY_TUNNEL_STATUS 
+        [Arguments]      ${SWITCH}
+        ${result}=       Run Process   st2  run  network_essentials.execute_cli  mgmt_ip\=${SWITCH}  cli_cmd\=show tunnel brief
+        ${op}=           Get Variable Value  ${result.stdout}
+        Should Contain   ${op}  Admin state up, Oper state up 
 
 
+    CONFIGURE L2 Tenant MAP VNI AUTO VLAN
+        ${result}=       Run Process  st2  run  dcfabric.add_singlehomed_endpoint  mgmt_ip\=${SWITCH_2}  vlan_id\=${VLAN ID}  intf_name\=${INTF NAME}  intf_type\=${INTF TYPE}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  ${SWITCHPORT_ACCESS_SUCCESS_MSG}
+        ${result}=       Run Process  st2  run  dcfabric.add_singlehomed_endpoint  mgmt_ip\=${SWITCH_3}  vlan_id\=${VLAN ID}  intf_name\=${INTF NAME}  intf_type\=${INTF TYPE}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  ${SWITCHPORT_ACCESS_SUCCESS_MSG}
+        ${result}=       Run Process  st2  run  dcfabric.create_l2_tenant_evpn  mgmt_ip\=${SWITCH_2}  vlan_id\=${VLAN ID}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should not Contain   ${op}  ERROR
+        ${result}=       Run Process  st2  run  dcfabric.create_l2_tenant_evpn  mgmt_ip\=${SWITCH_3}  vlan_id\=${VLAN ID}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should not Contain   ${op}  ERROR
+
+        ${result}=       Run Keyword   VERIFY_TUNNEL_STATUS  ${SWITCH_2}
+        ${result}=       Run Keyword   VERIFY_TUNNEL_STATUS  ${SWITCH_3}
+
+    CONFIGURE L2 Tenant MAP VNI MANUAL VLAN
+        ${result}=       Run Process  st2  run  dcfabric.add_multihomed_endpoint  mgmt_ip\=${SWITCH_2}  vlan_id\=${VLAN ID}  ports\=${INTF NAME}  intf_type\=${INTF TYPE}  auto_pick_port_channel_id\=True  vni\=${VLAN ID}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  ${SWITCHPORT_TRUNK_SUCCESS_MSG}
+        ${result}=       Run Process  st2  run  dcfabric.add_multihomed_endpoint  mgmt_ip\=${SWITCH_3}  vlan_id\=${VLAN ID}  ports\=${INTF NAME}  intf_type\=${INTF TYPE}  auto_pick_port_channel_id\=True  vni\=${VLAN ID}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should Contain   ${op}  ${SWITCHPORT_TRUNK_SUCCESS_MSG}
+        ${result}=       Run Process  st2  run  dcfabric.create_l2_tenant_evpn  mgmt_ip\=${SWITCH_2}  vlan_id\=${VLAN ID}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should not Contain   ${op}  ERROR
+        ${result}=       Run Process  st2  run  dcfabric.create_l2_tenant_evpn  mgmt_ip\=${SWITCH_3}  vlan_id\=${VLAN ID}
+        ${op}=           Get Variable Value  ${result.stdout}
+        Log To Console   ${op}
+        Should not Contain   ${op}  ERROR
+
+        ${result}=       Run Keyword   VERIFY_TUNNEL_STATUS  ${SWITCH_2}
+        ${result}=       Run Keyword   VERIFY_TUNNEL_STATUS  ${SWITCH_3}
 
 
     Delete SJ_FABRIC_DEFAULT
