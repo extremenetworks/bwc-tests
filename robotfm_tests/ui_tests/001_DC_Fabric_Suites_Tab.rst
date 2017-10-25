@@ -14,25 +14,26 @@
     Suite Teardown    Close All Browsers
 
     *** Test Cases ***
-    Test: Get st2 version
+    Test: Get "st2" and "bwc" version
         ${version}=  Run Process  st2  --version
-        Log To Console  Stackstorm version: ${version.stderr}
-        ${ver}=  Set Variable If   "2.4" in "${version.stderr}"   2.4   2.5
-        Set Global Variable    ${ST2_VERSION}    ${ver}
-        Log To Console  \nST2 version: ${ST2_VERSION}\n
+        Log To Console  \n\nStackstorm version:-> ${version.stderr}
+        ${version}=  Run Process  bwc  --version
+        Log To Console  \nBWC version:--------> ${version.stderr}\n
 
     Test: Verify Second tab is for Suites
+        Set Selenium Implicit Wait    10 seconds
         Click Element  //html/body/div[1]/header/div[2]/a[2]
         Wait Until Element Is Visible  //*[@id="st2-panel__scroller"]  10  Seconds
         ${result}  Get Location
         Should Contain  ${result}  suites
         Log To Console  \nSeccond Tab URL: ${result}\n
 
-        # suites for v2.5
-        Run Keyword If  ${ST2_VERSION}==2.5  Wait Until Element Is Visible  //html/body/div[1]/main/div[1]/div[2]/div[1][contains(text(), ' Suites ')]  10  Seconds
-        # DC fabric for v2.4
-        ...       ELSE  Wait Until Element Is Visible  //html/body/div[1]/main/div[1]/div[2]/div[1][contains(text(), ' DC Fabric: Actions ')]
+        # suites tab for v2.5 and above
+        Wait Until Element Is Visible  //html/body/div[1]/main/div[1]/div[2]/div[1][contains(text(), ' Suites ')]  10  Seconds
+
 
     Test: Verify that the Groupings of Actions/Workflows shows up in the DC Fabric Tab
-        Wait Until Element Is Visible   //html/body/div[1]/main/div[1]/div[3]/div/div[1]/div[1]/h4/span[contains(text(), ' DCFABRIC ')]
-        Element Should Contain  //html/body/div[1]/main/div[1]/div[3]  Manage EVPN Tenants and Edge Ports
+        Wait Until Keyword Succeeds    3x  2s  Wait Until Element Is Visible   //html/body/div[1]/main/div[1]/div[3]/div/div[1]/div[1]/h4/span[contains(text(), ' DCFABRIC ')]    10  Seconds
+        Log To Console    \nContains: "DCFABRIC"\n
+        Wait Until Keyword Succeeds    3x  2s  Wait Until Element Contains  //*[@id="st2-panel__scroller"]/div[1]/div[1]/h2  Manage EVPN Tenants and Edge Ports
+        Log To Console    \nContains: "Manage EVPN Tenants and Edge Ports" action\n
