@@ -17,6 +17,7 @@ PORT_CHANNEL_SUCCESS_MSG: 'port_channel_configs: true'
 PORT_CHANNEL_VALIDATION_MSG: 'state: in_sync'
 PORT_CHANNEL_TYPE_SLX: 'SLXOS only supports port-channel type as standard'
 PORT_CHANNEL_INVALID_MSG: 'not a valid value'
+PORT_CHANNEL_OUTSYNC_MSG: 'out_of_sync'
 
 #vrf
 VRF_INVALID: Invalid Input types while creating VRF

@@ -50,7 +50,7 @@
         ${result}=       Run Process  st2  run  network_essentials.validate_L2_port_channel_state  mgmt_ip\=${SWITCH 1}  port_channel_id\=${PO ID1} 
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Contain   ${op}  ${PORT_CHANNEL_VALIDATION_MSG}
+        Should Contain   ${op}  ${PORT_CHANNEL_OUTSYNC_MSG}
         
     DISABLE PORT CHANNEL
         ${result}=       Run Process  st2  run  network_essentials.set_intf_admin_state  mgmt_ip\=${SWITCH 1}  intf_type\=port_channel  intf_name\=${PO ID1}  enabled\=false  intf_desc\=portchannel
