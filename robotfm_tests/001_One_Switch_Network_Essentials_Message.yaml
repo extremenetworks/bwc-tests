@@ -1,0 +1,33 @@
+# Generic Messges 
+ 
+ 
+#VLAN_CREATE 
+VLAN_SUCCESS_MSG  : Successfully created a VLAN 
+NOT_VALID_VLAN :  Not a valid vlan 
+VLAN_INVALID : Invalid vlan format 
+ 
+ 
+#Switch Port 
+SWITCHPORT_SUCCESS_MSG : 'switchport_trunk_config: true' 
+SWITCHPORT_CONFIG_EXISTS : 'switchport_doesnot_exists: false' 
+SWITCHPORT_VLAN_NA : VLAN not configured 
+SWITCHPORT_NAME_INVALID : interface type or name invalid. 
+SWITCHPORT_ACCESS_SUCCESS_MSG : 'switchport_access_config: true'
+PORT_CHANNEL_SUCCESS_MSG: 'port_channel_configs: true'
+PORT_CHANNEL_VALIDATION_MSG: 'state: in_sync'
+PORT_CHANNEL_TYPE_SLX: 'SLXOS only supports port-channel type as standard'
+PORT_CHANNEL_INVALID_MSG: 'not a valid value'
+PORT_CHANNEL_OUTSYNC_MSG: 'out_of_sync'
+
+#vrf
+VRF_INVALID: Invalid Input types while creating VRF
+VRF_NO_RBID: Device requires rbridge-id
+VRF_DELETE:  'vrf: true'
+VRF_DELETE_INVALID: 'vrf: false'
+#vrrpe
+VRRPE_MSG:   'VRRPe_group: true'
+VRRPE_MSG_INVALID:  'VRRPe_group: false'
+
+#delete ve
+VE_DELETE_SUCCESS: 'Ve: true'
+VE_DELETE_INVALID: 'Ve: false'

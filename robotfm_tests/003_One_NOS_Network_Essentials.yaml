@@ -1,0 +1,44 @@
+TRUNK INTF NAME:    "3/0/18"
+FORTY INTF NAME:    "3/0/52"
+FORTY INTF INV NAME : "224/0"
+VLAN ID:             "2"
+VRF NAME :          "test_123456"
+RBRIDGE ID :        "224"
+EVI NAME :           "a101"
+ANYCAST MAC :        "a222.1222.1222"
+SUPPRESSION_TYPE :   "ARP"
+OVG_LOOPBACK_ID:     '21'
+OVG_NAME:            'ovg'
+SW USER :            "admin"
+SW PASSWORD :        "password"
+VE VLAN ID  :        "57"
+VE IP :              "3.4.5.78/24"
+VE VLAN ID2 :        "58"
+
+SYSTEM L2 MTU:      3024
+INVALID L2 MTU:     1521
+
+L2 MTU : 4020
+L3 MTU : 4080
+
+SYSTEM L3 MTU:      3024
+INVALID L3 MTU:     1279
+
+SYSTEM L3 MTU IPV6:      3024
+INVALID L3 MTU IPV6:     9101
+
+VLAN RANGE:        "780-783"
+VLAN BIG RANGE:    "2-1000"
+VLAN DESC:        "test123"
+FRESH VLAN ID:    "750"
+FRESH VLAN ID2:   "751"
+NOT EXISTING VLAN ID : "344"
+
+INVALID VLAN ID:    "9090"
+INVALID VLAN RANGE:        "780-"
+
+SWITCH 1:           "10.20.238.106"
+SWITCH 2:           "10.20.238.105"
+
+
+
