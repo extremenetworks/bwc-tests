@@ -71,7 +71,7 @@ def clean_switches(switch_info):
         cmd_file = 'setup_teardown/VDX_switch_configs/{0}.config'.format(last_octet)
         # print cmd_file
         try:
-            # Example: for 10.24.39.223 it will use file 223.config
+            # Example: for 10.24.39.245 it will use file 245.config
             with open(cmd_file, 'r') as selected_cmd_file:
 
                 # Starting from the beginning of the file

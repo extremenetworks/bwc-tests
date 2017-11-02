@@ -1,5 +1,17 @@
+<<<<<<< HEAD
 *** Keywords *** 
  Clean Switches 
+
+       Log To console   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^M
+       Log To console   Suite setup and Teardown: Cleaning Switches!!! ^M
+       ${result}=       Run Process   python          setup_teardown/clean_fabric.py   -f   setup_teardown/clean_fabric_IP.txt ^M
+       Log To Console   Return Code: ${result.rc} ^M
+       # Uncomment the following lines it Return code is not 0 ^M
+       Log To Console   all output:\n ${result.stdout} ^M
+       # Log To Console   err: ${result.stderr} ^M
+       Log To console   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+
        Log To console   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
        Log To console   Suite setup and Teardown: Cleaning Switches!!! 
        ${result}=       Run Process   python          setup_teardown/VDX_clean_fabric.py   -f   setup_teardown/VDX_clean_fabric_IP.txt 
@@ -89,3 +101,18 @@ Clean FreedomSwitch_Network_Essentials
  
  *** Settings *** 
  Library             Process 
+=======
+*** Keywords ***
+Clean Switches
+      Log To console   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      Log To console   Suite setup and Teardown: Cleaning Switches!!!
+      ${result}=       Run Process   python          setup_teardown/clean_fabric.py   -f   setup_teardown/clean_fabric_IP.txt
+      Log To Console   Return Code: ${result.rc}
+      # Uncomment the following lines it Return code is not 0
+      Log To Console   all output:\n ${result.stdout}
+      # Log To Console   err: ${result.stderr}
+      Log To console   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*** Settings ***
+Library             Process
+>>>>>>> master
