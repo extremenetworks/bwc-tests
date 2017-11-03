@@ -86,7 +86,7 @@
     *** Settings ***
     Library             OperatingSystem
     Library             Process
-    Resource            resource.robot
-    Suite teardown      resource.Clean CedarSwitch_Network_Essentials
-    Variables           001_One_Switch_Cedar_Network_Essentials.yaml
+    Resource            ../resource.robot
+    Suite teardown      resource.Clean FreedomSwitch_Network_Essentials
+    Variables           001_One_Switch_Freedom_Network_Essentials.yaml
     Variables           001_One_Switch_Network_Essentials_Message.yaml

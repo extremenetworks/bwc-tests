@@ -249,9 +249,9 @@
     *** Settings ***
     Library             OperatingSystem
     Library             Process
-    Resource            resource.robot
-    Resource            keywords/BwcInventory.rst
-    Resource            keywords/002.rst
+    Resource            ../resource.robot
+    Resource            ../keywords/BwcInventory.rst
+    Resource            ../keywords/002.rst
     Variables           001_One_Switch_Inventory_Operations.yaml
     Variables           002_Verify_User_Defined_Fabric.yaml
 
