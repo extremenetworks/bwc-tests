@@ -3,7 +3,7 @@
     *** Test Cases ***
 
 
-    BWC WORKFLOW BGP SWITCHES SINGLE LEAF ASN
+    BWC WORKFLOW BGP SWITCHES SINGLE SPINE ASN
         #LEAF is Single Leaf ==> so  'allow_as_in 1" on leaf
         #VNI Enabled  ==> Overlay gateway has  auto mapping
         [Setup]          Run Keywords  Create SJ_FABRIC_DEFAULT  ADD SJ_FABRIC_PEERGROUP  ADD SJ_FABRIC_SINGLE_ASN_BLOCK  ADD SJ_FABRIC_VLAN_VNI_AUTO
@@ -28,8 +28,8 @@
 
 
         ${result}=       Run Keyword   VERIFY_BGP_ON_SPINE  ${SWITCH_1}
-        ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_2}  'Yes'
-        ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_3}  'Yes'
+        ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_2}  'No'
+        ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_3}  'No'
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_2}  'Yes'
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_3}  'Yes'
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
@@ -37,10 +37,10 @@
 
         ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI AUTO VLAN
 
-        [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
+        #[Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
 
-    BWC WORKFLOW BGP SWITCHES SINGLE LEAF ASN VLAN VNI DISABLED
+    BWC WORKFLOW BGP SWITCHES SINGLE SPINE ASN VLAN VNI DISABLED
         #LEAF is Single Leaf ==> so  'allow_as_in 1" on leaf
         #VNI Disbaled  ==> Overlay gateway has no auto mapping
         [Setup]          Run Keywords  Create SJ_FABRIC_DEFAULT  ADD SJ_FABRIC_PEERGROUP  ADD SJ_FABRIC_SINGLE_ASN_BLOCK
@@ -64,8 +64,8 @@
         Log To Console   ${op}
 
         ${result}=       Run Keyword   VERIFY_BGP_ON_SPINE  ${SWITCH_1}
-        ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_2}  'Yes'
-        ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_3}  'Yes'
+        ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_2}  'No'
+        ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_3}  'No'
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_2}  'No'
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_3}  'No'
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
@@ -109,7 +109,7 @@
 
         ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI AUTO VLAN
 
-        [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
+        #[Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
 
     BWC WORKFLOW BGP SWITCHES LEAF ASN BLOCK VNI DISABLED
@@ -148,7 +148,7 @@
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
 
-    BWC WORKFLOW BGP SWITCHES SINGLE LEAF ASN NON PEER GROUP
+    BWC WORKFLOW BGP SWITCHES SINGLE SPINE ASN NON PEER GROUP
         #LEAF is Single Leaf ==> so  'allow_as_in 1" on leaf
         #VNI Enabled  ==> Overlay gateway has  auto mapping
         [Setup]          Run Keywords  Create SJ_FABRIC_DEFAULT  ADD SJ_FABRIC_SINGLE_ASN_BLOCK  ADD SJ_FABRIC_VLAN_VNI_AUTO
@@ -172,8 +172,8 @@
         Log To Console   ${op}
 
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_SPINE  ${SWITCH_1}
-        ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_2}  'Yes'
-        ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_3}  'Yes'
+        ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_2}  'No'
+        ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_3}  'No'
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_2}  'Yes'
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_3}  'Yes'
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
@@ -184,7 +184,7 @@
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
 
 
-    BWC WORKFLOW BGP SWITCHES SINGLE LEAF ASN VLAN VNI DISABLED NON PEER GROUP
+    BWC WORKFLOW BGP SWITCHES SINGLE SPINE ASN VLAN VNI DISABLED NON PEER GROUP
         #LEAF is Single Leaf ==> so  'allow_as_in 1" on leaf
         #VNI Disbaled  ==> Overlay gateway has no auto mapping
         [Setup]          Run Keywords  Create SJ_FABRIC_DEFAULT  ADD SJ_FABRIC_SINGLE_ASN_BLOCK
@@ -208,8 +208,8 @@
         Log To Console   ${op}
 
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_SPINE  ${SWITCH_1}
-        ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_2}  'Yes'
-        ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_3}  'Yes'
+        ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_2}  'No'
+        ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_3}  'No'
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_2}  'No'
         ${result}=       Run Keyword   VERIFY_OVERLAY_GATEWAY  ${SWITCH_3}  'No'
         ${result}=       Run Keyword   VERIFY_EVPN_INSTANCE  ${SWITCH_2}
@@ -409,6 +409,11 @@
         ${op}=           Get Variable Value  ${result.stdout}
         Should Contain   ${op}  Admin state up, Oper state up 
 
+    CLEAR_BGP_ALL 
+        [Arguments]      ${SWITCH}
+        ${result}=       Run Process   st2  run  network_essentials.execute_cli  mgmt_ip\=${SWITCH}  cli_cmd\=clear ip bgp neighbor all
+        ${op}=           Get Variable Value  ${result.stdout}
+
 
     CONFIGURE L2 Tenant MAP VNI AUTO VLAN
         ${result}=       Run Process  st2  run  dcfabric.add_singlehomed_endpoint  mgmt_ip\=${SWITCH_2}  vlan_id\=${VLAN ID}  intf_name\=${INTF NAME}  intf_type\=${INTF TYPE}
@@ -427,6 +432,10 @@
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
         Should not Contain   ${op}  ERROR
+     
+        
+        #${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_2}
+        #${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_2}
 
         ${result}=       Run Keyword   VERIFY_TUNNEL_STATUS  ${SWITCH_2}
         ${result}=       Run Keyword   VERIFY_TUNNEL_STATUS  ${SWITCH_3}
@@ -470,7 +479,7 @@
 
     ADD SJ_FABRIC_SINGLE_ASN_BLOCK
            ${result}=       Run Process  bwc  dcf  fabric   config  set  sj_fabric   spine_asn_block  65200
-           ${result}=       Run Process  bwc  dcf  fabric   config  set  sj_fabric   leaf_asn_block  65208
+           ${result}=       Run Process  bwc  dcf  fabric   config  set  sj_fabric   leaf_asn_block  65208-65400
 
     ADD SJ_FABRIC_VLAN_VNI_AUTO
            ${result}=       Run Process  bwc  dcf  fabric   config  set  sj_fabric   vni_auto_map  Yes
@@ -483,7 +492,7 @@
     Clean DCFabric_SLX
           Log To console   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           Log To console   Suite setup and Teardown: Cleaning Switches!!!
-          ${result}=       Run Process   python      setup_teardown/NOS_clean_fabric.py   -f   005_DCFabric_SLX
+          ${result}=       Run Process   python      setup_teardown/NOS_clean_fabric.py   -f   005_DCFabric_SLX_BK
           Log To Console   Return Code: ${result.rc}
           # Uncomment the following lines it Return code is not 0
           Log To Console   all output:\n ${result.stdout}

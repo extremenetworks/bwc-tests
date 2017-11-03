@@ -37,8 +37,10 @@ def update_switches(arg):
             'password': "password",
             'verbose': False
         }
-        switch_state_map[switch_ip] = EXECUTOR.submit(clean_switches, opt,switch_name,device_file)
+        #switch_state_map[switch_ip] = EXECUTOR.submit(clean_switches, opt,switch_name,device_file)
+        clean_switches(opt,switch_name,device_file)
 
+    """
     for k, v in switch_state_map.items():
         try:
             print "=" * 30, k, "=" * 30
@@ -48,6 +50,7 @@ def update_switches(arg):
                     print "\nSuccessfully cleaned switch: {0}\n".format(k)
         except:
             traceback.print_exc()
+    """
 
 
 def clean_switches(switch_info,switch_name,device_file):
