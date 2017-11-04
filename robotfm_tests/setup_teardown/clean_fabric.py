@@ -30,6 +30,7 @@ def update_switches(arg):
 	switch_state_map = {}
 	device_file = arg.filename
 	switches = connection_list(device_file)
+	print switches
 	for switch in switches:
 		opt = {
 			'device_type': 'brocade_vdx',
@@ -51,7 +52,7 @@ def update_switches(arg):
 
 
 def clean_switches(switch_info):
-	net_connect = None
+	remote_conn = None
 	try:
 		remote_conn_pre = paramiko.SSHClient()
 		# Automatically add untrusted hosts (make sure okay for security policy in
@@ -59,13 +60,13 @@ def clean_switches(switch_info):
 		remote_conn_pre.set_missing_host_key_policy(
 			paramiko.AutoAddPolicy())
 
-		remote_conn_pre.connect(switch_info['ip'], username=switch_info['username'], password=[
-			'password'], look_for_keys=False, allow_agent=False)
+		remote_conn_pre.connect(switch_info['ip'], username='admin', password='password',
+								look_for_keys=False, allow_agent=False)
 
 		# Use invoke_shell to establish an 'interactive session'
 		remote_conn = remote_conn_pre.invoke_shell()
 		# Strip the initial router prompt
-		output = remote_conn.recv(1000)
+		remote_conn.recv(1000)
 		# Now let's try to send the router a command
 		remote_conn.send("\n")
 		# Open command file based on the last octet of IP
@@ -96,16 +97,17 @@ def clean_switches(switch_info):
 	except paramiko.PasswordRequiredException as error:
 		print error
 	except paramiko.AuthenticationException:
-		print "* Invalid username or password. \n* Please check the " \
-			  "username/password or the device configuration!"
+		print '* Invalid username or password. \n* Please check the username/password or the ' \
+			  'device configuration!'
 		print "* Closing program...\n"
-	except Exception:
+	except Exception as error:
 		print "General Exception during switch cleanup script execution"
+		print error
 		print "* Closing program...\n"
 
 	finally:
-		if net_connect is not None:
-			net_connect.disconnect()
+		if remote_conn:
+			remote_conn.close()
 
 
 parser = ArgumentParser(description='VDX config script')
