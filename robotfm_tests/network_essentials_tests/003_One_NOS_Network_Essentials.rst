@@ -135,7 +135,7 @@
     *** Settings ***
     Library             OperatingSystem
     Library             Process
-    Resource            resource.robot
+    Resource            ../resource.robot
     Suite teardown      resource.Clean NOSSwitch_Network_Essentials
     Variables           003_One_NOS_Network_Essentials.yaml
     Variables           003_One_NOS_Network_Essentials_Message.yaml

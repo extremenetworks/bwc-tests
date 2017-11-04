@@ -28,7 +28,7 @@
         Should Contain   ${op}  ${SWITCHPORT_SUCCESS_MSG}
         
     CREATE PORT CHANNEL DEFAULT INTLIST
-        ${result}=       Run Process  st2  run  network_essentials.create_l2_port_channel  mgmt_ip\=${SWITCH 1}  intf_type\=${INT TYPE}  ports\=${PC PRTLIST}  port_channel_id\=${PO ID1}
+        ${result}=       Run Process  st2  run  network_essentials.create_l2_port_channel  mgmt_ip\=${SWITCH 1}  intf_type\=${INT TYPE}  ports\=${PC SINGLEPRT}  port_channel_id\=${PO ID1}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
         Should Contain   ${op}  ${PORT_CHANNEL_SUCCESS_MSG}
@@ -41,16 +41,16 @@
         
         
     CREATE PORT CHANNEL NONDEFAULT
-        ${result}=       Run Process  st2  run  network_essentials.create_l2_port_channel  mgmt_ip\=${SWITCH 1}  intf_type\=${INT TYPE}  ports\=${PC SINGLEPRT}  port_channel_id\=${PO ID3}  mode\=brocade  protocol\=modeon  port_channel_desc\=${PO DESC}
+        ${result}=       Run Process  st2  run  network_essentials.create_l2_port_channel  mgmt_ip\=${SWITCH 1}  intf_type\=${INT TYPE}  ports\=${PC PRTLIST}  port_channel_id\=${PO ID3}  mode\=brocade  protocol\=modeon  port_channel_desc\=${PO DESC}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Contain   ${op}  ${PORT_CHANNEL_SUCCESS_MSG}
+        Should Contain   ${op}  ${PORT_CHANNEL_TYPE_SLX}
             
     VALIDATE PORT CHANNEL STATE
-        ${result}=       Run Process  st2  run  network_essentials.validate_L2_port_channel_state  mgmt_ip\=${SWITCH 1}  port_channel_id\=${PO ID3} 
+        ${result}=       Run Process  st2  run  network_essentials.validate_L2_port_channel_state  mgmt_ip\=${SWITCH 1}  port_channel_id\=${PO ID1} 
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Contain   ${op}  ${PORT_CHANNEL_VALIDATION_MSG}
+        Should Contain   ${op}  ${PORT_CHANNEL_OUTSYNC_MSG}
         
     DISABLE PORT CHANNEL
         ${result}=       Run Process  st2  run  network_essentials.set_intf_admin_state  mgmt_ip\=${SWITCH 1}  intf_type\=port_channel  intf_name\=${PO ID1}  enabled\=false  intf_desc\=portchannel
@@ -86,7 +86,7 @@
     *** Settings ***
     Library             OperatingSystem
     Library             Process
-    Resource            resource.robot
-    Suite teardown         resource.Clean CastorSwitch_Network_Essentials
-    Variables           001_One_Switch_Castor_Network_Essentials.yaml
+    Resource            ../resource.robot
+    Suite teardown      resource.Clean CedarSwitch_Network_Essentials
+    Variables           001_One_Switch_Cedar_Network_Essentials.yaml
     Variables           001_One_Switch_Network_Essentials_Message.yaml

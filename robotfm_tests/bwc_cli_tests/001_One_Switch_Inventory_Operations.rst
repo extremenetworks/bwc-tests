@@ -26,8 +26,8 @@
         Should Not Contain   ${result.stdout}   Fabric
 
     *** Settings ***
-    Resource            keywords/BwcInventory.rst
+    Resource            ../keywords/BwcInventory.rst
     Variables           001_One_Switch_Inventory_Operations.yaml
-    Resource            resource.robot
+    Resource            ../resource.robot
     Suite Setup         resource.Clean Switches
     # Suite Teardown      Clean Switches
