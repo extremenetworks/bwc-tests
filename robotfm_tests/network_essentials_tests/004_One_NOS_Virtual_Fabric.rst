@@ -187,7 +187,7 @@
     *** Settings ***
     Library             OperatingSystem
     Library             Process
-    Resource            resource.robot
+    Resource            ../resource.robot
     Suite Setup         resource.Clean NOSSwitch_Virtual_Fabric
     Suite Teardown      resource.Clean NOSSwitch_Virtual_Fabric
-    Variables           004_Virtual_Fabric_Operations.yaml 
+    Variables           004_One_NOS_Virtual_Fabric.yaml 
