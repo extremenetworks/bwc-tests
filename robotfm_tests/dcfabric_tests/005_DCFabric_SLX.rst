@@ -65,6 +65,8 @@
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
 
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_2}
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_3}
         ${result}=       Run Keyword   VERIFY_BGP_ON_SPINE  ${SWITCH_1}
         ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_2}  'No'
         ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_3}  'No'
@@ -101,6 +103,8 @@
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
 
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_2}
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_3}
         ${result}=       Run Keyword   VERIFY_BGP_ON_SPINE  ${SWITCH_1}
         ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_2}  'No'
         ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_3}  'No'
@@ -137,6 +141,8 @@
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
 
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_2}
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_3}
         ${result}=       Run Keyword   VERIFY_BGP_ON_SPINE  ${SWITCH_1}
         ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_2}  'No'
         ${result}=       Run Keyword   VERIFY_BGP_ON_LEAF  ${SWITCH_3}  'No'
@@ -173,6 +179,8 @@
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
 
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_2}
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_3}
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_SPINE  ${SWITCH_1}
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_2}  'No'
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_3}  'No'
@@ -209,6 +217,8 @@
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
 
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_2}
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_3}
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_SPINE  ${SWITCH_1}
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_2}  'No'
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_3}  'No'
@@ -245,6 +255,8 @@
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
 
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_2}
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_3}
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_SPINE  ${SWITCH_1}
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_2}  'No'
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_3}  'No'
@@ -281,6 +293,8 @@
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
 
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_2}
+        ${result}=       Run Keyword   CLEAR_BGP_ALL  ${SWITCH_3}
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_SPINE  ${SWITCH_1}
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_2}  'No'
         ${result}=       Run Keyword   VERIFY_BGP_NON_PEER_GROUP_ON_LEAF  ${SWITCH_3}  'No'
@@ -292,8 +306,6 @@
         ${result}=       Run Keyword   CONFIGURE L2 Tenant MAP VNI MANUAL VLAN
 
         [Teardown]       Run Keywords  Delete SJ_FABRIC_DEFAULT  Clean DCFabric_SLX
-
-
 
     *** Keywords ***
 
