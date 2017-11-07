@@ -66,7 +66,7 @@ Clean DCFabric_SLX
 Clean NOSSwitch_Virtual_Fabric
       Log To console   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       Log To console   Suite setup and Teardown: Cleaning Switches!!!
-      ${result}=       Run Process   python         setup_teardown/NOS_clean_fabric.py   -f   004_NOS_Virtual_Fabric
+      ${result}=       Run Process   python         setup_teardown/NOS_clean_fabric.py   -f   004_One_NOS_Virtual_Fabric
       Log To Console   Return Code: ${result.rc}
       # Uncomment the following lines it Return code is not 0
       Log To Console   all output:\n ${result.stdout}
