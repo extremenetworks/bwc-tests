@@ -1,0 +1,11 @@
+
+SWITCH_1: "10.24.39.245"
+SWITCH_2: "10.24.39.252"
+SWITCH_3: "10.24.39.254"
+
+SWITCHPORT_ACCESS_SUCCESS_MSG: 'switchport_access_config: true'
+SWITCHPORT_TRUNK_SUCCESS_MSG: 'vlan_vni_mapping: true'
+
+INTF NAME:    "0/10"
+INTF TYPE:    "ethernet"
+VLAN ID:    "450"
