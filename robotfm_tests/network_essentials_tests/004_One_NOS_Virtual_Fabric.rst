@@ -9,30 +9,6 @@
         Log To Console   ${op}
         Should Contain   ${op}  Enabling VCS Virtual Fabric on the device 
 
-    GET NEXT AVAILABLE VF ID
-        ${result}=       Run Process  st2  run  network_essentials.get_next_available_network_id  mgmt_ip\=${SWITCH 1}
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Not Contain   ${op}  network_id: '' 
-
-    GET NEXT AVAILABLE VF LENGTH
-        ${result}=       Run Process  st2  run  network_essentials.get_next_available_network_id  mgmt_ip\=${SWITCH 1}  length_of_the_range\=${VLAN LENGTH}
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Not Contain   ${op}  network_id: '' 
-
-    GET NEXT AVAILABLE VF LENGTH RANGE
-        ${result}=       Run Process  st2  run  network_essentials.get_next_available_network_id  mgmt_ip\=${SWITCH 1}  length_of_the_range\=${VLAN RANGE}
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Not Contain   ${op}  network_id: '' 
-
-    GET NEXT AVAILABLE VF INVALID LENGTH
-        ${result}=       Run Process  st2  run  network_essentials.get_next_available_network_id  mgmt_ip\=${SWITCH 1}  length_of_the_range\=${4096}
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Contain   ${op}  ERROR 
-
     CREATE CTAG VLAN
         ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}
         ${op}=           Get Variable Value  ${result.stdout}
@@ -83,12 +59,6 @@
 
     SWITCH PORT TRUNK RANGE
         ${result}=       Run Process  st2  run  network_essentials.create_switchport_trunk  mgmt_ip\=${SWITCH 1}  vlan_id\=${VF VLAN RANGE}  c_tag\=${VLAN RANGE}  intf_name\=${TRUNK INTF NAME}  intf_type\=tengigabitethernet
-        ${op}=           Get Variable Value  ${result.stdout}
-        Log To Console   ${op}
-        Should Contain   ${op}  ${SWITCHPORT_SUCCESS_MSG}
-
-    REMOVE SWITCH PORT TRUNK VLAN RANGE
-        ${result}=       Run Process  st2  run  network_essentials.remove_switchport_trunk_allowed_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${VF VLAN RANGE}  c_tag\=${VLAN RANGE}  intf_name\=${TRUNK INTF NAME}  intf_type\=tengigabitethernet
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
         Should Contain   ${op}  ${SWITCHPORT_SUCCESS_MSG}
