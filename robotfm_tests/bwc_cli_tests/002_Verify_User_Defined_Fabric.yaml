@@ -34,6 +34,7 @@ SINGLE LEAF ASN:       "50000"
 SINGLE P2P IP:         "unnumbered"
 SINGLE LOOPBACK PORT:  "25"
 SINGLE LOOPBACK IP:    "172.32.254.0/24"
+SINGLE MCT IP:         "10.10.12.0/23"
 
 UNNUMBERED FABRIC:         "unnumbered_fabric"
 UNNUMBERED SPINE ASN:      "4500-4900"
@@ -41,6 +42,7 @@ UNNUMBERED LEAF ASN:       "5000-6600"
 UNNUMBERED P2P IP:         "unnumbered"
 UNNUMBERED LOOPBACK PORT:  "25"
 UNNUMBERED LOOPBACK IP:     "172.32.254.0/24"
+UNNUMBERED MCT IP:         "10.10.12.0/23"
 
 NO FABRIC:                 "no_fabric"
 
@@ -50,7 +52,7 @@ TEST LEAF ASN:       "7-9"
 TEST P2P IP:         "10.10.10.0/23"
 TEST LOOPBACK PORT:  "2"
 TEST LOOPBACK IP:    "172.32.254.0/24"
-
+TEST MCT IP:         "10.10.12.0/23"
 
 SWITCH 1:           "10.24.39.245"
 SWITCH 2:           "10.24.39.252"
