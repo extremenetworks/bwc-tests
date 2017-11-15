@@ -67,6 +67,7 @@
         spine_asn_block       ${USER SPINE ASN}           ${USER FABRIC}   Setting spine_asn_block with value ${USER SPINE ASN} added to fabric ${USER FABRIC}
         loopback_port_number  ${USER LOOPBACK PORT}       ${USER FABRIC}   Setting loopback_port_number with value ${USER LOOPBACK PORT} added to fabric ${USER FABRIC}
         leaf_asn_block        ${USER LEAF ASN}            ${USER FABRIC}   Setting leaf_asn_block with value ${USER LEAF ASN} added to fabric ${USER FABRIC}
+        mct_link_ip_range     ${USER MCT IP}              ${USER FABRIC}   Setting mct_link_ip_range with value ${USER MCT IP} added to fabric ${USER FABRIC}
 
     Add New Fabric: "unnumbered_fabric"
         ${output}=       Run Process   bwc  dcf  fabric   add   fabric\=${UNNUMBERED FABRIC}
@@ -80,7 +81,7 @@
         spine_asn_block       ${UNNUMBERED SPINE ASN}      ${UNNUMBERED FABRIC}   Setting spine_asn_block with value ${UNNUMBERED SPINE ASN} added to fabric ${UNNUMBERED FABRIC}
         loopback_port_number  ${UNNUMBERED LOOPBACK PORT}  ${UNNUMBERED FABRIC}   Setting loopback_port_number with value ${UNNUMBERED LOOPBACK PORT} added to fabric ${UNNUMBERED FABRIC}
         leaf_asn_block        ${UNNUMBERED LEAF ASN}       ${UNNUMBERED FABRIC}   Setting leaf_asn_block with value ${UNNUMBERED LEAF ASN} added to fabric ${UNNUMBERED FABRIC}
-
+        mct_link_ip_range     ${UNNUMBERED MCT IP}         ${UNNUMBERED FABRIC}   Setting mct_link_ip_range with value ${UNNUMBERED MCT IP} added to fabric ${UNNUMBERED FABRIC}
     Add New Fabric: "single_asn_fabric"
         ${output}=       Run Process   bwc  dcf  fabric   add   fabric\=${SINGLE FABRIC}
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
@@ -93,6 +94,7 @@
         spine_asn_block       ${SINGLE SPINE ASN}      ${SINGLE FABRIC}   Setting spine_asn_block with value ${SINGLE SPINE ASN} added to fabric ${SINGLE FABRIC}
         loopback_port_number  ${SINGLE LOOPBACK PORT}  ${SINGLE FABRIC}   Setting loopback_port_number with value ${SINGLE LOOPBACK PORT} added to fabric ${SINGLE FABRIC}
         leaf_asn_block        ${SINGLE LEAF ASN}       ${SINGLE FABRIC}   Setting leaf_asn_block with value ${SINGLE LEAF ASN} added to fabric ${SINGLE FABRIC}
+        mct_link_ip_range     ${SINGLE MCT IP}         ${SINGLE FABRIC}   Setting mct_link_ip_range with value ${SINGLE MCT IP} added to fabric ${SINGLE FABRIC}
 
     Check the mandatory values can not edited or deleted
         [Template]    BWC add fabric parameters TEMPLATE
@@ -108,6 +110,7 @@
         leaf_asn_block        ${UNNUMBERED SPINE ASN}      ${UNNUMBERED FABRIC}  ${OPERATION FAILED}
         spine_asn_block       ${SINGLE LEAF ASN}           ${SINGLE FABRIC}      ${OPERATION FAILED}
         leaf_asn_block        ${SINGLE SPINE ASN}          ${SINGLE FABRIC}      ${OPERATION FAILED}
+        mct_link_ip_range     ${SINGLE MCT IP}             ${SINGLE FABRIC}      ${OPERATION FAILED}
 
 
     Switch registration should be successful now for all three fabrics "new_fabric", "${UNNUMBERED P2P IP}", "single_asn_fabric":
@@ -205,6 +208,7 @@
         Log To Console  \nOUTPUT:\n${output.stdout}\nERR:\n${output.stderr}\nRC:\n${output.rc}
         Should Contain   ${output.stdout}   ${SW_REG_FAIL_TEST}
         BWC add fabric parameters TEMPLATE    leaf_asn_block      ${TEST LEAF ASN}       ${TEST FABRIC}   Setting leaf_asn_block with value ${TEST LEAF ASN} added to fabric ${TEST FABRIC}
+        BWC add fabric parameters TEMPLATE    mct_link_ip_range   ${TEST MCT IP}         ${TEST FABRIC}   Setting mct_link_ip_range with value ${TEST MCT IP} added to fabric ${TEST FABRIC}
         ${output}=       Inventory Register  ${TEST FABRIC}       ${SWITCH 1}  ${USER}  ${PASSWD}
         Should Contain  ${output.stdout}  Fabric: ${TEST FABRIC}
         ${output}=       Run Process   bwc  dcf  fabric  delete  ${TEST FABRIC}
