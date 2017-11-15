@@ -27,6 +27,7 @@
         Should Not Contain   ${op}  ERROR
 
     CREATE VLAN RESERVED
+        [tags] skip-stable
         ${result}=       Run Process  st2  run  network_essentials.create_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=1002
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
