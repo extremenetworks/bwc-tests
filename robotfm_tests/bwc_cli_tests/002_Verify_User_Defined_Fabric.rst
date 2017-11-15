@@ -67,6 +67,7 @@
         spine_asn_block       ${USER SPINE ASN}           ${USER FABRIC}   Setting spine_asn_block with value ${USER SPINE ASN} added to fabric ${USER FABRIC}
         loopback_port_number  ${USER LOOPBACK PORT}       ${USER FABRIC}   Setting loopback_port_number with value ${USER LOOPBACK PORT} added to fabric ${USER FABRIC}
         leaf_asn_block        ${USER LEAF ASN}            ${USER FABRIC}   Setting leaf_asn_block with value ${USER LEAF ASN} added to fabric ${USER FABRIC}
+        mct_link_ip_range     ${USER MCT IP}              ${USER FABRIC}   Setting mct_link_ip_range with value ${USER MCT IP} added to fabric ${USER FABRIC}
 
     Add New Fabric: "unnumbered_fabric"
         ${output}=       Run Process   bwc  dcf  fabric   add   fabric\=${UNNUMBERED FABRIC}
@@ -109,6 +110,7 @@
         leaf_asn_block        ${UNNUMBERED SPINE ASN}      ${UNNUMBERED FABRIC}  ${OPERATION FAILED}
         spine_asn_block       ${SINGLE LEAF ASN}           ${SINGLE FABRIC}      ${OPERATION FAILED}
         leaf_asn_block        ${SINGLE SPINE ASN}          ${SINGLE FABRIC}      ${OPERATION FAILED}
+        mct_link_ip_range     ${SINGLE MCT IP}             ${SINGLE FABRIC}      ${OPERATION FAILED}
 
 
     Switch registration should be successful now for all three fabrics "new_fabric", "${UNNUMBERED P2P IP}", "single_asn_fabric":
