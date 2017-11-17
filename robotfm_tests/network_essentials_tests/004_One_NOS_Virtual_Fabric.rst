@@ -93,31 +93,36 @@
         Log To Console   ${op}
         Should not Contain   ${op}  ERROR
 
-    CONFIGURE VLAN TO VNI MAPPING 
+    CONFIGURE VLAN TO VNI MAPPING
+        [Tags]           skip-stable
         ${result}=       Run Process  st2  run  dcfabric.configure_vni_mapping  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}  vlan_vni\=${FRESH VLAN ID}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
         Should Contain   ${op}  ${VLAN_VNI_MAP_SUCCESS_MSG}
 
-    CONFIGURE VLAN TO VNI RANGE MAPPING 
+    CONFIGURE VLAN TO VNI RANGE MAPPING
+        [Tags]           skip-stable
         ${result}=       Run Process  st2  run  dcfabric.configure_vni_mapping  mgmt_ip\=${SWITCH 1}  vlan_id\=${VLAN RANGE}  vlan_vni\=${VF VLAN RANGE}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
         Should Contain   ${op}  ${VLAN_VNI_MAP_SUCCESS_MSG}
 
-    DELETE VLAN TO VNI MAPPING 
+    DELETE VLAN TO VNI MAPPING
+        [Tags]           skip-stable
         ${result}=       Run Process  st2  run  dcfabric.delete_vlan_vni_mapping  mgmt_ip\=${SWITCH 1}  vlan_id\=${FRESH VLAN ID}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
         Should Contain   ${op}  ${VLAN_VNI_MAP_SUCCESS_MSG}
 
-    DELETE VLAN TO VNI RANGE MAPPING 
+    DELETE VLAN TO VNI RANGE MAPPING
+        [Tags]           skip-stable
         ${result}=       Run Process  st2  run  dcfabric.delete_vlan_vni_mapping  mgmt_ip\=${SWITCH 1}  vlan_id\=${VLAN RANGE}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
         Should Contain   ${op}  ${VLAN_VNI_MAP_SUCCESS_MSG}
 
-    DELETE VLAN TO VNI AUTO MAPPING 
+    DELETE VLAN TO VNI AUTO MAPPING
+        [Tags]           skip-stable
         ${result}=       Run Process  st2  run  dcfabric.delete_vlan_vni_mapping  mgmt_ip\=${SWITCH 1}  auto\=True
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
