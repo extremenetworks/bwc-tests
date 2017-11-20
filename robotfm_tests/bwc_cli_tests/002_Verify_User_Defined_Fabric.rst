@@ -110,7 +110,6 @@
         leaf_asn_block        ${UNNUMBERED SPINE ASN}      ${UNNUMBERED FABRIC}  ${OPERATION FAILED}
         spine_asn_block       ${SINGLE LEAF ASN}           ${SINGLE FABRIC}      ${OPERATION FAILED}
         leaf_asn_block        ${SINGLE SPINE ASN}          ${SINGLE FABRIC}      ${OPERATION FAILED}
-        mct_link_ip_range     ${SINGLE MCT IP}             ${SINGLE FABRIC}      ${OPERATION FAILED}
 
 
     Switch registration should be successful now for all three fabrics "new_fabric", "${UNNUMBERED P2P IP}", "single_asn_fabric":
