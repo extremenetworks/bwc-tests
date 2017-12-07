@@ -149,7 +149,7 @@
         bfd_tx          a                  ${USER FABRIC}  ${OPERATION FAILED}
         bgp_multihop    a                  ${USER FABRIC}  ${OPERATION FAILED}
         bgp_multihop    0                  ${USER FABRIC}  ${OPERATION FAILED}
-        bgp_multihop    56                 ${USER FABRIC}  ${OPERATION FAILED}
+        bgp_multihop    256                ${USER FABRIC}  ${OPERATION FAILED}
         bgp_multihop    ''                 ${USER FABRIC}  ${OPERATION FAILED}
         evpn_enabled    Y                  ${USER FABRIC}  ${OPERATION FAILED}
         evpn_enabled    N                  ${USER FABRIC}  ${OPERATION FAILED}
