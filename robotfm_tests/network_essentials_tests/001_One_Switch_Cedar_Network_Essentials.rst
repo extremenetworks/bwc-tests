@@ -22,6 +22,7 @@
         Should Contain   ${op}  ${SWITCHPORT_ACCESS_SUCCESS_MSG}
         
     CONFIGURE SWITCH PORT TRUNK
+        [Tags]           skip-stable
         ${result}=       Run Process  st2  run  network_essentials.create_switchport_trunk  mgmt_ip\=${SWITCH 1}  vlan_id\=${VLAN LIST}  intf_name\=${TRUNK INTF NAME}  intf_type\=${INT TYPE}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
