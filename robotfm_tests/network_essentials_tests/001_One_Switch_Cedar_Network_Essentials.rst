@@ -66,13 +66,13 @@
         Should Contain   ${op}  ${PORT_CHANNEL_SUCCESS_MSG}
         
     REMOVE SWITCH PORT TRUNK VLAN
+        [Tags]           skip-stable
         ${result}=       Run Process  st2  run  network_essentials.remove_switchport_trunk_allowed_vlan  mgmt_ip\=${SWITCH 1}  vlan_id\=${VLAN LIST}  intf_name\=${TRUNK INTF NAME}  intf_type\=${INT TYPE}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
         Should Contain   ${op}  ${SWITCHPORT_SUCCESS_MSG}
         
     DELETE SWITCHPORT
-        [Tags]           skip-stable
 		    ${result}=       Run Process  st2  run  network_essentials.delete_switchport  mgmt_ip\=${SWITCH 1}  intf_name\=${ACCESS INTF NAME}  intf_type\=${INT TYPE}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
