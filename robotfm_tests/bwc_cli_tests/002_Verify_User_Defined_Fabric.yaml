@@ -55,7 +55,7 @@ TEST LOOPBACK PORT:  "2"
 TEST LOOPBACK IP:    "172.32.254.0/24"
 TEST MCT IP:         "10.10.12.0/23"
 
-SWITCH 1:           "10.24.39.245"
+SWITCH 1:           "10.24.39.251"
 SWITCH 2:           "10.24.39.252"
 SWITCH 3:           "10.24.39.254"
 FAB_VAR_ADD_FAIL:   "Failed to set key value pair.  Messages:"
