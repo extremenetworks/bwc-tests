@@ -17,8 +17,8 @@
         Input Text    name=password  ${PASSWORD}
 
         # XPath for Connect Button as there is no unique locator
-        Click Element   //html/body/div[1]/div[1]/form/div[2]/input
-        Wait Until Element Is Visible  //html/body/div[1]/header/div[2]/a[2]  15  Seconds
+        Click Element   //*[@id="container"]/div/div/form/div[3]/input
+        Wait Until Element Is Visible  //*[@id="container"]/div/div/header/div[2]/a[2]  15  Seconds
 
         ${result}  Get Location
         Log To Console  \nLogin Successful - URL: ${result}\n
@@ -30,8 +30,8 @@
         Input Text    name=password  ${PASSWORD}
 
         # XPath for Connect Button as there is no unique locator
-        Click Element   //html/body/div[1]/div[1]/form/div[2]/input
-        Wait Until Element Is Visible  //html/body/div[1]/header/div[2]/a[2]  15  Seconds
+        Click Element   //*[@id="container"]/div/div/form/div[3]/input
+        Wait Until Element Is Visible  //*[@id="container"]/div/div/header/div[2]/a[2]  15  Seconds
 
         ${result}  Get Location
         Log To Console  \nLogin Successful - URL: ${result}\n
