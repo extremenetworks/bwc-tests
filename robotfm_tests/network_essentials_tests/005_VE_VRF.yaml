@@ -1,0 +1,27 @@
+CASTOR_IP:             "10.25.225.182"
+FREEDOM_IP:            "10.24.63.218"
+CEDAR_IP:              "10.24.63.217"
+USERNAME:              "admin"
+PASSWORD:              "srasdnbfo"
+RBRIDGE_ID:            "182"
+
+VE_ID:                 "4000"
+
+VLAN_ID1:              "1000"
+VLAN_ID2:              "1500"
+VLAN_ID3:              "2000"
+VLAN_ID4:              "3000"
+VLAN_ID5:              "4000"
+
+VRF_NAME1:             "red"
+VRF_NAME2:             "blue"
+
+AFI_IPv4:              "ipv4"
+AFI_IPv6:              "ipv6"
+
+IP_ADDR1:              "100.100.20.10/30"
+IP_ADDR2:              "90.90.90.5/22"
+IP_ADDR3:              "110.110.110.50/18"
+
+
+
