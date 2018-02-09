@@ -4,8 +4,6 @@
 
     
     CREATE VRF1 AND ASSIGN IPv4 ADDRESS FAMILY
-        [Tags]           skip-stable
-        [Tags]           skip-unstable
         ${result}=       Run Process  st2  run  network_essentials.create_vrf  mgmt_ip\=${CEDAR_IP}  username\=${USERNAME}  password\=${PASSWORD}  vrf_name\=${VRF_NAME1}  afi\=${AFI_IPv4}  
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
@@ -20,8 +18,6 @@
         Should Contain   ${op}  succeeded
 
     CREATE VRF2 AND ASSIGN IPv4 ADDRESS FAMILY
-        [Tags]           skip-stable
-        [Tags]           skip-unstable
         ${result}=       Run Process  st2  run  network_essentials.create_vrf  mgmt_ip\=${CEDAR_IP}  username\=${USERNAME}  password\=${PASSWORD}  vrf_name\=${VRF_NAME2}  afi\=${AFI_IPv4}  
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
