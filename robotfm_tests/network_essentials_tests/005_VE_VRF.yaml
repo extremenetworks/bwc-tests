@@ -1,9 +1,9 @@
-CASTOR_IP:             "10.25.225.182"
-FREEDOM_IP:            "10.24.63.218"
-CEDAR_IP:              "10.24.63.217"
+CASTOR_IP:             "10.20.238.106"
+CEDAR_IP:              "10.24.39.251"
+FREEDOM_IP:            "10.24.39.254"
 USERNAME:              "admin"
-PASSWORD:              "srasdnbfo"
-RBRIDGE_ID:            "182"
+PASSWORD:              "password"
+RBRIDGE_ID:            "3"
 
 VE_ID:                 "4000"
 
