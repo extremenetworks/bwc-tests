@@ -409,7 +409,7 @@
         Should Not Contain   ${op}  ERROR
 
 
-    CREATE SWITCHPORT FOR INTERFACE TO APPLY MAC_ACL
+    CREATE SWITCHPORT FOR INTERFACE TO APPLY MAC_ACL2
         ${result}=       Run Process  st2  run  network_essentials.create_switchport_access  mgmt_ip\=${CASTOR_IP}  username\=${USERNAME}  password\=${PASSWORD}  intf_type\=${VDX INT TYPE}  intf_name\=${VDX INT NAME2}  vlan_id\=${VLAN_ID10}  
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
