@@ -24,12 +24,12 @@
         Log To Console   ${op}
         Should Not Contain   ${op}  ERROR
 
-    REGISTER USER DEFAULT
+    REGISTER USER INVALID
         [Tags]           skip-stable
-        ${result}=       Run Process  st2  run  network_essentials.register_device_credentials  mgmt_ip\=${DEFAULT_IP}  username\=${DEFAULT_USERNAME}  password\=${DEFAULT_PASSWORD}
+        ${result}=       Run Process  st2  run  network_essentials.register_device_credentials  mgmt_ip\=${INVALID_IP}  username\=${INVALID_USERNAME}  password\=${INVALID_PASSWORD}
         ${op}=           Get Variable Value  ${result.stdout}
         Log To Console   ${op}
-        Should Not Contain   ${op}  ERROR
+        Should Contain   ${op}  ERROR
 
 
     *** Settings ***
