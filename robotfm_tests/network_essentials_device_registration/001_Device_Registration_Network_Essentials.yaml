@@ -1,12 +1,12 @@
-CASTOR_IP:             "10.20.238.106"
+CASTOR_IP:             "10.25.225.158"
 CASTOR_USERNAME:       "admin"
 CASTOR_PASSWORD:       "password"
 
-FREEDOM_IP:            "10.24.39.254"
+FREEDOM_IP:            "10.25.225.154"
 FREEDOM_USERNAME:      "admin"
 FREEDOM_PASSWORD:      "password"
 
-CEDAR_IP:              "10.24.39.251"
+CEDAR_IP:              "10.25.225.151"
 CEDAR_USERNAME:        "admin"
 CEDAR_PASSWORD:        "password"
 

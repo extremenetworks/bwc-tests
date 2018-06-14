@@ -37,8 +37,8 @@ NOT EXISTING VLAN ID : "344"
 INVALID VLAN ID:    "9090"
 INVALID VLAN RANGE:        "780-"
 
-SWITCH 1:           "10.20.238.106"
-SWITCH 2:           "10.20.238.105"
+SWITCH 1:           "10.25.225.158"
+SWITCH 2:           "10.25.225.157"
 
 
 
