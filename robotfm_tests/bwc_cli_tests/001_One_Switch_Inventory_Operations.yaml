@@ -1,7 +1,7 @@
 ASN:         "''"
 FABRIC NAME: "default"
 FIRMWARE:    "17s.1.1"
-IP ADDRESS:  "10.25.225.151" 
+IP ADDRESS:  "10.25.225.145"
 USER:        "admin"
 PASSWD:      "password"
 MODEL:       "BR-SLX9240"
